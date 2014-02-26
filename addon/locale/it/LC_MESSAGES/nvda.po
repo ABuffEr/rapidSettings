@@ -1,0 +1,70 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 'rapidSettings' '1.0dev'\n"
+"Report-Msgid-Bugs-To: 'nvda-translations@freelists.org'\n"
+"POT-Creation-Date: 2014-02-26 09:35+0100\n"
+"PO-Revision-Date: 2014-02-26 09:36+0100\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Alberto Buffolino <a.buffolino@gmail.com>\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.4\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Basepath: .\n"
+
+#. Translators: name for General settings
+#: addon\globalPlugins\rapidSettings\__init__.py:30
+msgid "General"
+msgstr "Generali"
+
+#. Translators: name for Keyboard settings
+#: addon\globalPlugins\rapidSettings\__init__.py:35
+msgid "Keyboard"
+msgstr "Tastiera"
+
+#. Translators: name for Review Cursor settings
+#: addon\globalPlugins\rapidSettings\__init__.py:38
+msgid "Review Cursor"
+msgstr "Cursore di controllo"
+
+#. Translators: name for Input Composition settings
+#: addon\globalPlugins\rapidSettings\__init__.py:40
+msgid "Input Composition"
+msgstr "Composizione immissione"
+
+#. Translators: the message for save changes
+#: addon\globalPlugins\rapidSettings\__init__.py:390
+#, python-brace-format
+msgid "Do you want to save changes for {section} section?"
+msgstr "Vuoi salvare i cambiamenti per la sezione {section}?"
+
+#. Translators: the description for the settings tree script.
+#: addon\globalPlugins\rapidSettings\__init__.py:413
+msgid ""
+"Presents a tree of all settings sections, which you can expand to modify all "
+"NVDA options"
+msgstr ""
+"Presenta un albero con tutte le sezioni delle impostazioni, che si può "
+"espandere per poi modificare tutte le opzioni di NVDA."
+
+#. Add-on summary, usually the user visible name of the addon.
+#. Translators: Summary for this add-on to be shown on installation and add-on information.
+#: buildVars.py:17
+msgid "Rapid Settings"
+msgstr "Rapid Settings"
+
+#. Add-on description
+#. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
+#: buildVars.py:20
+msgid ""
+"Lets you to access to all settings in a single window, and search among them."
+msgstr ""
+"Permette di accedere a tutte le impostazioni in una singola finestra, e "
+"ricercare fra di esse."

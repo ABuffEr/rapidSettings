@@ -1,0 +1,64 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 'rapidSettings' '1.0dev'\n"
+"Report-Msgid-Bugs-To: 'nvda-translations@freelists.org'\n"
+"POT-Creation-Date: 2014-02-26 09:35+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Translators: name for General settings
+#: addon\globalPlugins\rapidSettings\__init__.py:30
+msgid "General"
+msgstr ""
+
+#. Translators: name for Keyboard settings
+#: addon\globalPlugins\rapidSettings\__init__.py:35
+msgid "Keyboard"
+msgstr ""
+
+#. Translators: name for Review Cursor settings
+#: addon\globalPlugins\rapidSettings\__init__.py:38
+msgid "Review Cursor"
+msgstr ""
+
+#. Translators: name for Input Composition settings
+#: addon\globalPlugins\rapidSettings\__init__.py:40
+msgid "Input Composition"
+msgstr ""
+
+#. Translators: the message for save changes
+#: addon\globalPlugins\rapidSettings\__init__.py:390
+#, python-brace-format
+msgid "Do you want to save changes for {section} section?"
+msgstr ""
+
+#. Translators: the description for the settings tree script.
+#: addon\globalPlugins\rapidSettings\__init__.py:413
+msgid ""
+"Presents a tree of all settings sections, which you can expand to modify all "
+"NVDA options"
+msgstr ""
+
+#. Add-on summary, usually the user visible name of the addon.
+#. Translators: Summary for this add-on to be shown on installation and add-on information.
+#: buildVars.py:17
+msgid "Rapid Settings"
+msgstr ""
+
+#. Add-on description
+#. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
+#: buildVars.py:20
+msgid ""
+"Lets you to access to all settings in a single window, and search among them."
+msgstr ""
