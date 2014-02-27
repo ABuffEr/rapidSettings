@@ -9,7 +9,7 @@ from msg import message as msg
 import queueHandler
 import ui
 from tones import beep
-#from logHandler import log
+from logHandler import log
 import addonHandler
 addonHandler.initTranslation()
 
@@ -227,15 +227,16 @@ class SettingsTreeDialog(SettingsDialog):
 			return obj
 
 	def __init__(self, *args, **kwargs):
-		"""Init method, it sets title according to active profile"""
-		profileName = None
-		try:
-			profileName = ''.join(['(', config.conf.profiles[-1].name, ')'])
-		except:
-			pass
-		if profileName is None:
-			profileName = msg("(normal configuration)")
-		self.title = ' '.join([_addonSummary, profileName])
+		"""Init method, it sets title according to active profiles"""
+		# We remove profile 0, the first one, which is the normal profile, always active.
+		activeProfiles = config.conf.profiles[1:]
+		profileNames = []
+		profileTitle = ''
+		while len(activeProfiles) > 0:
+			profileNames.append(activeProfiles.pop().name)
+		if len(profileNames)>0:
+			profileTitle = '('+', '.join(profileNames)+')'
+		self.title = ' '.join([_addonSummary, profileTitle])
 		super(SettingsTreeDialog, self).__init__(*args, **kwargs)
 
 	def makeSettings(self, settingsSizer):
