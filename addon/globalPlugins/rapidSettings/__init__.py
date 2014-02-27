@@ -109,7 +109,8 @@ class SettingsTree(wx.TreeCtrl):
 			if name is not None and self.find in name.lower():
 				treeSubItem = self.AppendItem(treeItem, name)
 				self.Bind(wx.EVT_TREE_SEL_CHANGED, self.onSelectedItem)
-				self.Bind(wx.EVT_KEY_UP, self.onKeyPress)
+				self.Bind(wx.EVT_KEY_DOWN, self.onSpacePress)
+				self.Bind(wx.EVT_KEY_UP, self.onExit)
 				# associate tree item with relative control
 				self.SetPyData(treeSubItem, child)
 
@@ -128,7 +129,16 @@ class SettingsTree(wx.TreeCtrl):
 		wxControl = self.GetPyData(item)
 		self.GetParent().enableItem(wxControl)
 
-	def onKeyPress(self, event):
+	def onSpacePress(self, event):
+		"""Call cycleItem in SettingsTreeDialog, control associated with tree item as parameter"""
+		if event.GetKeyCode() == wx.WXK_SPACE:
+			item = self.GetSelection()
+			wxControl = self.GetPyData(item)
+			self.GetParent().cycleItem(wxControl)
+		else:
+			event.Skip()
+
+	def onExit(self, event):
 		"""Invoke Destroy method of parent if you press escape"""
 		if event.GetKeyCode() == wx.WXK_ESCAPE:
 			self.GetParent().Destroy()
@@ -347,7 +357,7 @@ class SettingsTreeDialog(SettingsDialog):
 			item.SetSelection(self.combo.GetSelection())
 			# force phantom combobox to process its event method,
 			# useful for language and variant comboboxes in voice section
-			item.Command(event)
+			item.GetEventHandler().ProcessEvent(event)
 			# request a update to relative tree item
 			self.tree.updateLabel(self.combo.GetLabel())
 		elif item.ClassName == u'wxTextCtrl':
@@ -366,6 +376,39 @@ class SettingsTreeDialog(SettingsDialog):
 				self.changedItems.remove(item)
 			item.SetValue(self.slider.GetValue())
 			self.tree.updateLabel(str(self.slider.GetValue()), suffix='%')
+
+	def cycleItem(self, item):
+		if item.ClassName == u'wxChoice':
+			nextSelection = self.combo.GetSelection()+1
+			if nextSelection == len(self.combo.GetItems()):
+				nextSelection = 0
+			self.combo.SetSelection(nextSelection)
+			# entire life is a workaround...
+			event = wx.CommandEvent(wx.wxEVT_COMMAND_CHOICE_SELECTED)
+			event.SetInt(self.combo.GetSelection())
+			self.onItemChange(event, item)
+		elif item.ClassName == u'wxTextCtrl':
+			if not self.edit.GetValue().isdigit():
+				self.edit.SetFocus()
+			else:
+				nextValue = int(self.edit.GetValue())+1
+				self.edit.SetValue(str(nextValue))
+				# except for combobox, event is not really necessary
+				self.onItemChange(None, item)
+		elif item.ClassName == u'wxCheckBox':
+			if self.rb1.GetValue():
+				self.rb1.SetValue(False)
+				self.rb2.SetValue(True)
+			else:
+				self.rb1.SetValue(True)
+				self.rb2.SetValue(False)
+			self.onItemChange(None, item)
+		if item.ClassName == u'wxSlider':
+			nextValue = self.slider.GetValue()+1
+			if nextValue == self.slider.GetMax()+1:
+				nextValue = 0
+			self.slider.SetValue(nextValue)
+			self.onItemChange(None, item)
 
 	def onOk(self, event):
 		"""Call onOk(event) on phantom dialog instance, if this exists, and the same on superclass"""
