@@ -4,11 +4,11 @@
 
 Questo add-on fornisce un accesso veloce a tutte le impostazioni di NVDA, raggruppando tutte le categorie delle impostazioni in una struttura ad albero, e permettendoti di ricercare fra di esse quando si dimentica dov'&egrave; una specifica opzione.
 
-Inoltre, il titolo della finestra ti d&agrave; informazioni sull'attuale profilo di configurazione attivo (configurazione normale, o altro, se lo hai creato).
+Inoltre, il titolo della finestra ti d&agrave; informazioni sugli attuali profili di configurazione attivi.
 
 ## Utilizzo ##
 
-Premi semplicemente NVDA+O e naviga nell'albero, espandendo la sezione delle impostazioni desiderata. Quando vuoi cambiare un valore di un'impostazione, premi tab e modifica il valore nella combobox, editbox, e cos&igrave; via.
+Premi semplicemente NVDA+O e naviga nell'albero, espandendo la sezione delle impostazioni desiderata. Quando vuoi cambiare un valore di un'impostazione, premi tab e modifica il valore nella combobox, editbox, e cos&igrave; via, oppure premi direttamente spazio sull'elemento dell'albero se vuoi ciclare fra i possibili valori o incrementare il valore attuale (se numerico).
 
 Puoi anche cercare in tutte le impostazioni, usando l'apposito campo prima dell'albero; per ripristinare l'albero originale dopo una ricerca, premi semplicemente invio nel campo di ricerca.
 
@@ -16,6 +16,7 @@ Puoi anche cercare in tutte le impostazioni, usando l'apposito campo prima dell'
 
 * NVDA+O (tutti i layout): apre la finestra principale.
 * Invio (nel campo di ricerca): ripristina l'albero originale delle impostazioni.
+* Spazio (su un elemento dell'albero): cicla fra i possibili valori dell'impostazione, o incrementa il valore attuale (se numerico).
 
 ## Cambiamenti per 1.0 ##
 
