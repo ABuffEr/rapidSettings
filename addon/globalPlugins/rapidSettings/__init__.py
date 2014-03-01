@@ -34,8 +34,7 @@ class SettingsTree(wx.TreeCtrl):
 		# Translators: name for Keyboard settings
 		(_("Keyboard"), KeyboardSettingsDialog),
 		(msg("Mouse"), MouseSettingsDialog),
-		# Translators: name for Review Cursor settings
-		(_("Review Cursor"), ReviewCursorDialog),
+		(msg("Review &cursor...").replace('...', ''), ReviewCursorDialog),
 		# Translators: name for Input Composition settings
 		(_("Input Composition"), InputCompositionDialog),
 		(msg("Object Presentation"), ObjectPresentationDialog),

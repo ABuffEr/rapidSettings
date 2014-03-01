@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 'rapidSettings' '1.0dev'\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@freelists.org'\n"
 "POT-Creation-Date: 2014-02-26 09:35+0100\n"
-"PO-Revision-Date: 2014-02-26 09:36+0100\n"
+"PO-Revision-Date: 2014-03-01 01:40+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Alberto Buffolino <a.buffolino@gmail.com>\n"
 "Language: it\n"
@@ -28,11 +28,6 @@ msgstr "Generali"
 #: addon\globalPlugins\rapidSettings\__init__.py:35
 msgid "Keyboard"
 msgstr "Tastiera"
-
-#. Translators: name for Review Cursor settings
-#: addon\globalPlugins\rapidSettings\__init__.py:38
-msgid "Review Cursor"
-msgstr "Cursore di controllo"
 
 #. Translators: name for Input Composition settings
 #: addon\globalPlugins\rapidSettings\__init__.py:40
