@@ -19,7 +19,7 @@ addon_info = {
 	# Translators: Long description to be shown for this add-on on add-on information from add-ons manager
 	"addon-description" : _("""Lets you to access to all settings in a single window, and search among them."""),
 	# version
-	"addon-version" : "1.0dev",
+	"addon-version" : "2.0dev",
 	# Author(s)
 	"addon-author" : u"Alberto Buffolino <a.buffolino@gmail.com>",
 	# URL for the add-on documentation support

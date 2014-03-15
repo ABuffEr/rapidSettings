@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 'rapidSettings' '1.0dev'\n"
+"Project-Id-Version: 'rapidSettings' '2.0dev'\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@freelists.org'\n"
-"POT-Creation-Date: 2014-02-26 09:35+0100\n"
-"PO-Revision-Date: 2014-03-01 01:40+0100\n"
+"POT-Creation-Date: 2014-03-15 14:47+0100\n"
+"PO-Revision-Date: 2014-03-15 14:49+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Alberto Buffolino <a.buffolino@gmail.com>\n"
 "Language: it\n"
@@ -20,28 +20,41 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 
 #. Translators: name for General settings
-#: addon\globalPlugins\rapidSettings\__init__.py:30
+#: addon\globalPlugins\rapidSettings\__init__.py:33
 msgid "General"
 msgstr "Generali"
 
 #. Translators: name for Keyboard settings
-#: addon\globalPlugins\rapidSettings\__init__.py:35
+#: addon\globalPlugins\rapidSettings\__init__.py:38
 msgid "Keyboard"
 msgstr "Tastiera"
 
 #. Translators: name for Input Composition settings
-#: addon\globalPlugins\rapidSettings\__init__.py:40
+#: addon\globalPlugins\rapidSettings\__init__.py:42
 msgid "Input Composition"
 msgstr "Composizione immissione"
 
+#. Translators: a message presented when you open this dialog with configuration profiles dialog opened
+#: addon\globalPlugins\rapidSettings\__init__.py:257
+msgid "Configuration profiles dialog is open. Please close it first."
+msgstr ""
+"La finestra di dialogo profili di configurazione è aperta. Prima chiudila, "
+"per favore."
+
+#. FIXME: escape should close menu, but close dialog
+#. Translators: a label of menu item to close menu itself
+#: addon\globalPlugins\rapidSettings\__init__.py:398
+msgid "&Close menu"
+msgstr "&Chiudi menu"
+
 #. Translators: the message for save changes
-#: addon\globalPlugins\rapidSettings\__init__.py:390
+#: addon\globalPlugins\rapidSettings\__init__.py:758
 #, python-brace-format
 msgid "Do you want to save changes for {section} section?"
 msgstr "Vuoi salvare i cambiamenti per la sezione {section}?"
 
 #. Translators: the description for the settings tree script.
-#: addon\globalPlugins\rapidSettings\__init__.py:413
+#: addon\globalPlugins\rapidSettings\__init__.py:784
 msgid ""
 "Presents a tree of all settings sections, which you can expand to modify all "
 "NVDA options"
