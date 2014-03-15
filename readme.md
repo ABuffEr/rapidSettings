@@ -1,6 +1,7 @@
 # Rapid Settings #
 
 * Author: Alberto buffolino.
+* Download [development version][1]
 
 This add-on provides a quick access to all NVDA settings, grouping all settings categories in a tree structure, and lets you to search among them when you forget where is a specific option.
 
@@ -38,3 +39,5 @@ You can also search in all settings, using the specific field before the tree; t
 * Enable or disable triggers from context menu requires to close dialog for coherence reasons (see code for details).
 * When you select a Braille display that requires port selection, the port combobox is not shown immediately.
 * If you get an error in Braille display selection (display not found), after pressing ok the original dialog appears.
+
+[1]: http://addons.nvda-project.org/files/get.php?rs-dev
