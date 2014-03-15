@@ -40,4 +40,4 @@ You can also search in all settings, using the specific field before the tree; t
 * When you select a Braille display that requires port selection, the port combobox is not shown immediately.
 * If you get an error in Braille display selection (display not found), after pressing ok the original dialog appears.
 
-[1]: http://addons.nvda-project.org/files/get.php?rs-dev
+[1]: http://addons.nvda-project.org/files/get.php?file=rs-dev
