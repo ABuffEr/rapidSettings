@@ -25,6 +25,7 @@ You can also search in all settings, using the specific field before the tree; t
 ## Changes for 2.0 ##
 
 * Profile management implementation.
+* Various bug fixes.
 
 ## Changes for 1.0 ##
 
@@ -33,11 +34,8 @@ You can also search in all settings, using the specific field before the tree; t
 ### Bugs or problems still present ###
 
 * Braille remains on a blank line when search field it cleaned automatically.
-* If you press escape on a combobox, editbox, radio button or slider, the event is not processed by main dialog, generating errors.
-* If you press escape on context menu, dialog is closed (not context menu).
 * It's not possible to use return on a tree item to simulate click on ok button (see code for details).
 * Enable or disable triggers from context menu requires to close dialog for coherence reasons (see code for details).
 * When you select a Braille display that requires port selection, the port combobox is not shown immediately.
-* If you get an error in Braille display selection (display not found), after pressing ok the original dialog appears.
 
 [1]: http://addons.nvda-project.org/files/get.php?file=rs-dev

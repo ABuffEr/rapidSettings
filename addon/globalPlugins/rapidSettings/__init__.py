@@ -11,7 +11,7 @@ from msg import message as msg
 import queueHandler
 import ui
 from tones import beep
-from logHandler import log
+#from logHandler import log
 import addonHandler
 addonHandler.initTranslation()
 
@@ -21,7 +21,7 @@ _addonSummary = _curAddon.manifest['summary']
 _scriptCategory = unicode(_addonSummary)
 
 # the global variables to store current settings dialog instance
-# and a application focused object before script_showSettingsTree execution
+# and an application focused object before script_showSettingsTree execution
 ins = curAppObj = None
 
 class SettingsTree(wx.TreeCtrl):
@@ -97,7 +97,7 @@ class SettingsTree(wx.TreeCtrl):
 		# list of all wx controls in the dialog
 		children = ins.GetChildren()
 		# loop to prepare names for tree items, based on combobox, editbox, checkbox and slider
-		for n in range(0,len(children)):
+		for n in xrange(0,len(children)):
 			child = children[n]
 			name = None
 			if child.IsEnabled():
@@ -107,13 +107,13 @@ class SettingsTree(wx.TreeCtrl):
 						# the colon presence is very inconsistent
 						sep = ' ' if child.GetName().endswith(':') else ': '
 						# concatenate name, separator and current value of combobox
-						name = sep.join([msg(child.GetName()), msg(child.GetLabel())])
+						name = sep.join([msg(child.GetName()), msg(child.GetStringSelection())])
 					else:
 						# ...but some other has "choice" as name, so we take the staticText label, the previous control
 						sep = ' ' if children[n-1].GetLabel().endswith(':') else ': '
-						name = sep.join([msg(children[n-1].GetLabel()), msg(child.GetLabel())])
+						name = sep.join([msg(children[n-1].GetLabel()), msg(child.GetStringSelection())])
 				elif child.ClassName == u'wxTextCtrl':
-					name = ': '.join([msg(children[n-1].GetLabel()), child.GetLabel()])
+					name = ': '.join([msg(children[n-1].GetLabel()), child.GetValue()])
 				elif child.ClassName == u'wxCheckBox':
 					name = ': '.join([msg(child.GetLabel()), msg("on" if child.GetValue() else "off")])
 				elif child.ClassName == u'wxSlider':
@@ -325,8 +325,16 @@ class SettingsTreeDialog(SettingsDialog):
 		self.originalTriggersValue = self.modifiedTriggersValue = config.conf.profileTriggersEnabled
 		# hide controls associated with tree items
 		self.disableItems()
+		# bind onEscape on all items, to avoid problems pressing escape
+		for item in self.GetChildren():
+			item.Bind(wx.EVT_KEY_UP, self.onEscape)
+		# remember ok and cancel button
+#		self.Bind(wx.EVT_KEY_UP, self.onEscape, id=wx.ID_OK)
+#		self.Bind(wx.EVT_KEY_UP, self.onEscape, id=wx.ID_CANCEL)
 		# trace modified settings
 		self.changedItems = []
+		# useful to fix problem closing context menu in onCancel
+		self.contextMenu = None
 
 	def listProfiles(self):
 		"""Build the list for profiles combo"""
@@ -376,33 +384,33 @@ class SettingsTreeDialog(SettingsDialog):
 
 	def viewPopupMenu(self, event):
 		"""Create context menu, calling preparePopupMenu, and view it"""
-		popupMenu = self.preparePopupMenu()
-		self.PopupMenu(popupMenu)
+		self.contextMenu = self.preparePopupMenu()
+		self.PopupMenu(self.contextMenu)
 
 	def preparePopupMenu(self):
 		"""Prepare context menu items according to current profile"""
 		popupMenu = wx.Menu()
 		toggleManualProfileMI = popupMenu.Append(wx.NewId(), msg("Manual activate"))
-		self.Bind(wx.EVT_MENU, self.toggleManualProfile, toggleManualProfileMI)
+		popupMenu.Bind(wx.EVT_MENU, self.toggleManualProfile, toggleManualProfileMI)
 		newProfileMI = popupMenu.Append(wx.NewId(), msg("&New", amp=True))
-		self.Bind(wx.EVT_MENU, self.newProfile, newProfileMI)
+		popupMenu.Bind(wx.EVT_MENU, self.newProfile, newProfileMI)
 		renameProfileMI = popupMenu.Append(wx.NewId(), msg("&Rename", amp=True))
-		self.Bind(wx.EVT_MENU, self.renameProfile, renameProfileMI)
+		popupMenu.Bind(wx.EVT_MENU, self.renameProfile, renameProfileMI)
 		deleteProfileMI = popupMenu.Append(wx.NewId(), msg("&Delete", amp=True))
-		self.Bind(wx.EVT_MENU, self.deleteProfile, deleteProfileMI)
+		popupMenu.Bind(wx.EVT_MENU, self.deleteProfile, deleteProfileMI)
 		toggleTriggersMI = popupMenu.AppendCheckItem(wx.NewId(), msg("Temporarily d&isable all triggers", amp=True))
 		toggleTriggersMI.Check(not self.modifiedTriggersValue)
-		self.Bind(wx.EVT_MENU, self.toggleTriggers, toggleTriggersMI)
-		# FIXME: escape should close menu, but close dialog
-		# Translators: a label of menu item to close menu itself
-		closeMenuMI = popupMenu.Append(wx.NewId(), _("&Close menu"))
-		self.Bind(wx.EVT_MENU, self.closePopupMenu, closeMenuMI)
-		curProfile = self.profileCombo.GetLabel()
+		popupMenu.Bind(wx.EVT_MENU, self.toggleTriggers, toggleTriggersMI)
+		curProfile = self.profileCombo.GetStringSelection()
 		if curProfile == msg("(normal configuration)"):
+			toggleManualProfileMI.Enable(False)
 			renameProfileMI.Enable(False)
 			deleteProfileMI.Enable(False)
 		else:
-			(cName, cStates) = curProfile.rsplit(' (', 1)
+			try:
+				cName, cStates = curProfile.rsplit(' (', 1)
+			except:
+				cName = curProfile.rsplit(' (', 1)
 			# if yes, it is manual or triggered
 			if self.originalProfile != msg("(normal configuration)"):
 				(oName, oStates) = self.originalProfile.rsplit(' (', 1)
@@ -412,7 +420,7 @@ class SettingsTreeDialog(SettingsDialog):
 			# or it is normal configuration, and currently selected profile was already
 			# candidate to be manually activated, so now it can be only deactivated
 			elif cName == self.keepProfile:
-					toggleManualProfileMI.SetText(msg("Manual deactivate"))
+				toggleManualProfileMI.SetText(msg("Manual deactivate"))
 		return popupMenu
 
 	def postInit(self):
@@ -475,6 +483,11 @@ class SettingsTreeDialog(SettingsDialog):
 		self.slider.Bind(wx.EVT_COMMAND_SCROLL, lambda event, item=slider: self.onItemChange(event, item))
 		self.slider.Enable()
 
+	def onEscape(self, event):
+		if event.GetKeyCode() == wx.WXK_ESCAPE:
+			self.onCancel(event)
+#			event.StopPropagation()
+
 	def onInputSearch(self, event):
 		"""Process input in search field, call search method on the tree"""
 		input = self.search.GetValue()
@@ -500,7 +513,7 @@ class SettingsTreeDialog(SettingsDialog):
 			# useful for language and variant comboboxes in voice section
 			item.GetEventHandler().ProcessEvent(event)
 			# request a update to relative tree item
-			self.tree.updateLabel(self.combo.GetLabel())
+			self.tree.updateLabel(self.combo.GetStringSelection())
 		elif item.ClassName == u'wxTextCtrl':
 			if self.edit.GetValue() == self.editOriginalValue:
 				self.changedItems.remove(item)
@@ -607,7 +620,7 @@ class SettingsTreeDialog(SettingsDialog):
 	def toggleManualProfile(self, event):
 		"""Indicate which profile must be kept manually active after dialog closing"""
 		toggleManualProfileMI = event.GetEventObject().FindItemById(event.GetId())
-		name = self.profileCombo.GetLabel().rsplit(' (', 1)[0]
+		name = self.profileCombo.GetStringSelection().rsplit(' (', 1)[0]
 		if toggleManualProfileMI.GetText() == msg("Manual activate"):
 			self.keepProfile = name
 		else:
@@ -618,11 +631,11 @@ class SettingsTreeDialog(SettingsDialog):
 		"""Show new profile creation dialog"""
 		# collapse and request to eventually save changes
 		self.tree.CollapseAll()
+		self.onOk(wx.EVT_BUTTON)
 		profDlg = self.getProfileDialog()
 		NewProfileDialog(profDlg).Show()
 		# "destroy" ProfilesDialog instance, for coherence reasons
 		ProfilesDialog._instance = None
-		self.onOk(wx.EVT_BUTTON)
 
 	def renameProfile(self, event):
 		"""Show profile renaming dialog"""
@@ -646,10 +659,12 @@ class SettingsTreeDialog(SettingsDialog):
 		profDlg.onDelete(wx.EVT_BUTTON)
 		# "destroy" ProfilesDialog instance, for coherence reasons
 		ProfilesDialog._instance = None
-		# update dialog title and profileCombo
+		# update dialog title, tree and profileCombo
+		self.tree.find = ''
+		self.tree.initSections(self.tree.prepareClassList())
+		self.updateProfileCombo()
 		self.title = self.prepareTitle()
 		self.SetTitle(self.title)
-		self.updateProfileCombo()
 
 	def toggleTriggers(self, event):
 		"""Indicate if triggers must be kept activated or deactivated after dialog closing"""
@@ -673,11 +688,6 @@ class SettingsTreeDialog(SettingsDialog):
 		# Temporary solution part 2: close dialog
 		self.onOk(wx.EVT_BUTTON)
 
-	def closePopupMenu(self, event):
-		"""Close context menu"""
-		# see FIXME comment in preparePopupMenu
-		event.GetEventObject().Destroy()
-
 	def onOk(self, event):
 		"""Call onOk(event) on phantom dialog instance, if this exists, and the same on superclass, plus many various actions"""
 		if ins is not None and "wxPyDeadObject" not in str(ins.__class__):
@@ -687,7 +697,12 @@ class SettingsTreeDialog(SettingsDialog):
 			# disable an eventual profile manually activated (to modify)
 			config.conf.manualActivateProfile(None)
 		else:
-			(name, states) = self.originalProfile.rsplit(' (', 1)
+			try:
+				(name, states) = self.originalProfile.rsplit(' (', 1)
+			# changing NVDA language and pressing return, we have only name (normal configuration), so:
+			except:
+				name = self.originalProfile.rsplit(' (', 1)
+				states = []
 			# if initial profile is manual, otherwise
 			if msg("manual") in states:
 				try:
@@ -719,6 +734,10 @@ class SettingsTreeDialog(SettingsDialog):
 
 	def onCancel(self, event):
 		"""Call onCancel(event) on phantom dialog instance, if this exists, and the same on superclass"""
+		if self.contextMenu != None and "wxPyDeadObject" not in str(self.contextMenu.__class__):
+			self.contextMenu.Destroy()
+			self.profileCombo.SetFocus()
+			return
 		if ins is not None and "wxPyDeadObject" not in str(ins.__class__):
 			ins.onCancel(event)
 		# if triggers is originally enabled
@@ -741,7 +760,7 @@ class SettingsTreeDialog(SettingsDialog):
 				# simply manually deactivate an eventual profile manually activated (to modify it)
 				config.conf.manualActivateProfile(None)
 		# if initial is normal configuration and is not currently selected profile in profileCombo
-		elif self.originalProfile != self.profileCombo.GetLabel():
+		elif self.originalProfile != self.profileCombo.GetStringSelection():
 			# disable an eventual profile manually activated (to modify)
 			config.conf.manualActivateProfile(None)
 		super(SettingsTreeDialog, self).onCancel(event)
