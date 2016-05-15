@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
-# Author: Alberto Buffolino
+# Copyright (C) 2014-2016 Alberto Buffolino
+# This file is covered by the GNU General Public License.
 import globalPluginHandler
 import wx
 import gui
@@ -25,7 +26,7 @@ _scriptCategory = unicode(_addonSummary)
 ins = curAppObj = None
 
 class SettingsTree(wx.TreeCtrl):
-	"""Class that implement all operation on the tree"""
+	"""Class that implements all operations on the tree"""
 
 	# list of tuples (settings section, relative class dialog to instantiate)
 	classList = [
@@ -82,19 +83,19 @@ class SettingsTree(wx.TreeCtrl):
 	def onExpandingItem(self, event):
 		"""Populate the section tree item with various options in this section"""
 		if self._expanded:
-			# collapse the expanded section, generating a wx.EVT_TREE_ITEM_COLLAPSED event,
+			# collapse the previously expanded section, generating a wx.EVT_TREE_ITEM_COLLAPSED event,
 			# and executing relative onCollapsedItem method
 			self.CollapseAll()
 		self._expanded = True
 		treeItem = event.GetItem()
 		classDialog = self.GetPyData(treeItem)
 		global ins
-		# instantiate the settings section dialog
+		# instantiate the NVDA settings section dialog
 		ins = classDialog(self)
-		# workaround: show to then immediately hide the dialog, that is our phantom slave, now :-)
+		# workaround: show to then immediately hide that dialog, that is our phantom slave, now :-)
 		ins.Show()
 		ins.Hide()
-		# list of all wx controls in the dialog
+		# list of all wx controls in that dialog
 		children = ins.GetChildren()
 		# loop to prepare names for tree items, based on combobox, editbox, checkbox and slider
 		for n in xrange(0,len(children)):
