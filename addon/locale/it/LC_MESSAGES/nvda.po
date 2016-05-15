@@ -5,50 +5,49 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 'rapidSettings' '2.0dev'\n"
+"Project-Id-Version: rapidSettings 2.0-dev\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@freelists.org'\n"
-"POT-Creation-Date: 2015-03-17 14:55+0100\n"
-"PO-Revision-Date: 2015-03-17 14:56+0100\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Alberto Buffolino <a.buffolino@gmail.com>\n"
-"Language: it\n"
+"POT-Creation-Date: 2016-05-15 20:57+0100\n"
+"PO-Revision-Date: 2016-05-15 22:46+0200\n"
+"Language-Team: a.buffolino@gmail.com\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.5\n"
+"X-Generator: Poedit 1.8.7\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Poedit-Basepath: .\n"
+"Language: it\n"
+"Last-Translator: Alberto Buffolino <a.buffolino@gmail.com>\n"
 
 #. Translators: name for General settings
-#: addon\globalPlugins\rapidSettings\__init__.py:33
+#: addon\globalPlugins\rapidSettings\__init__.py:34
 msgid "General"
 msgstr "Generali"
 
 #. Translators: name for Keyboard settings
-#: addon\globalPlugins\rapidSettings\__init__.py:38
+#: addon\globalPlugins\rapidSettings\__init__.py:39
 msgid "Keyboard"
 msgstr "Tastiera"
 
 #. Translators: name for Input Composition settings
-#: addon\globalPlugins\rapidSettings\__init__.py:42
+#: addon\globalPlugins\rapidSettings\__init__.py:43
 msgid "Input Composition"
 msgstr "Composizione immissione"
 
 #. Translators: a message presented when you open this dialog with configuration profiles dialog opened
-#: addon\globalPlugins\rapidSettings\__init__.py:257
+#: addon\globalPlugins\rapidSettings\__init__.py:258
 msgid "Configuration profiles dialog is open. Please close it first."
 msgstr ""
 "La finestra di dialogo profili di configurazione è aperta. Prima chiudila, "
 "per favore."
 
 #. Translators: the message for save changes
-#: addon\globalPlugins\rapidSettings\__init__.py:777
+#: addon\globalPlugins\rapidSettings\__init__.py:778
 #, python-brace-format
 msgid "Do you want to save changes for {section} section?"
 msgstr "Vuoi salvare i cambiamenti per la sezione {section}?"
 
 #. Translators: the description for the settings tree script.
-#: addon\globalPlugins\rapidSettings\__init__.py:803
+#: addon\globalPlugins\rapidSettings\__init__.py:804
 msgid ""
 "Presents a tree of all settings sections, which you can expand to modify all "
 "NVDA options"
@@ -65,11 +64,7 @@ msgstr "Rapid Settings"
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
 #: buildVars.py:20
-msgid ""
-"Lets you to access to all settings in a single window, and search among them."
+msgid "Lets you access all settings in a single window, and search among them."
 msgstr ""
 "Permette di accedere a tutte le impostazioni in una singola finestra, e "
 "ricercare fra di esse."
-
-#~ msgid "&Close menu"
-#~ msgstr "&Chiudi menu"

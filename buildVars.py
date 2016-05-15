@@ -17,9 +17,9 @@ addon_info = {
 	"addon_summary" : _("Rapid Settings"),
 	# Add-on description
 	# Translators: Long description to be shown for this add-on on add-on information from add-ons manager
-	"addon_description" : _("""Lets you access all settings in a single window, and search among them."""),
+	"addon_description" : _("""Lets you access all settings in a single window, and search among them."""),
 	# version
-	"addon_version" : "2.0dev",
+	"addon_version" : "2.0-dev",
 	# Author(s)
 	"addon_author" : u"Alberto Buffolino <a.buffolino@gmail.com>",
 	# URL for the add-on documentation support
