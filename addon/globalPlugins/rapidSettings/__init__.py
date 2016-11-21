@@ -86,6 +86,7 @@ class SettingsTree(wx.TreeCtrl):
 			# collapse the previously expanded section, generating a wx.EVT_TREE_ITEM_COLLAPSED event,
 			# and executing relative onCollapsedItem method
 			self.CollapseAll()
+		SettingsDialog._hasInstance = False
 		self._expanded = True
 		treeItem = event.GetItem()
 		classDialog = self.GetPyData(treeItem)
@@ -96,10 +97,17 @@ class SettingsTree(wx.TreeCtrl):
 		ins.Show()
 		ins.Hide()
 		# list of all wx controls in that dialog
-		children = ins.GetChildren()
+		directChildren = ins.GetChildren()
+		allChildren = []
+		# loop to manage new scrolled panel introduced with guiHelper
+		for child in directChildren:
+			if child.ClassName == u'wxPyScrolledWindow':
+				allChildren.extend(child.GetChildren())
+			else:
+				allChildren.append(child)
 		# loop to prepare names for tree items, based on combobox, editbox, checkbox and slider
-		for n in xrange(0,len(children)):
-			child = children[n]
+		for n in xrange(0,len(allChildren)):
+			child = allChildren[n]
 			name = None
 			if child.IsEnabled():
 				if child.ClassName == u'wxChoice':
@@ -111,10 +119,10 @@ class SettingsTree(wx.TreeCtrl):
 						name = sep.join([msg(child.GetName()), msg(child.GetStringSelection())])
 					else:
 						# ...but some other has "choice" as name, so we take the staticText label, the previous control
-						sep = ' ' if children[n-1].GetLabel().endswith(':') else ': '
-						name = sep.join([msg(children[n-1].GetLabel()), msg(child.GetStringSelection())])
+						sep = ' ' if allChildren[n-1].GetLabel().endswith(':') else ': '
+						name = sep.join([msg(allChildren[n-1].GetLabel()), msg(child.GetStringSelection())])
 				elif child.ClassName == u'wxTextCtrl':
-					name = ': '.join([msg(children[n-1].GetLabel()), child.GetValue()])
+					name = ': '.join([msg(allChildren[n-1].GetLabel()), child.GetValue()])
 				elif child.ClassName == u'wxCheckBox':
 					name = ': '.join([msg(child.GetLabel()), msg("on" if child.GetValue() else "off")])
 				elif child.ClassName == u'wxSlider':
@@ -197,7 +205,15 @@ class SettingsTree(wx.TreeCtrl):
 			ins = classDialog(self)
 			ins.Show()
 			ins.Hide()
-			for child in ins.GetChildren():
+			directChildren = ins.GetChildren()
+			allChildren = []
+			# loop to manage new scrolled panel introduced with guiHelper
+			for child in directChildren:
+				if child.ClassName == u'wxPyScrolledWindow':
+					allChildren.extend(child.GetChildren())
+				else:
+					allChildren.append(child)
+			for child in allChildren:
 				# exclude buttons
 				if child.ClassName != 'wxButton':
 					# list that collects name and label attribute of control
@@ -771,7 +787,7 @@ class SettingsTreeDialog(SettingsDialog):
 		if len(self.changedItems) == 0:
 			ins.Destroy()
 			# force _hasInstance to False, while phantom dialog is destroying, to bypass MultiInstanceError
-			SettingsDialog._hasInstance = False
+			SettingsDialog._hasInstance = True
 			return
 		if gui.messageBox(
 			# Translators: the message for save changes
@@ -781,7 +797,7 @@ class SettingsTreeDialog(SettingsDialog):
 		else:
 			ins.onCancel(wx.EVT_BUTTON)
 		# force _hasInstance to False, while phantom dialog is destroying after onOk or onCancel execution, to bypass MultiInstanceError
-		SettingsDialog._hasInstance = False
+		SettingsDialog._hasInstance = True
 		# reset changedItems list
 		self.changedItems = []
 
