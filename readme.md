@@ -1,6 +1,6 @@
 # Rapid Settings #
 
-WARNING: this add-on is unsupported; latest NVDA compatible version is 2017.4.
+WARNING: this add-on has no support; latest NVDA compatible version is 2017.4.
 
 * Author: Alberto buffolino.
 * Download [development version][1]
