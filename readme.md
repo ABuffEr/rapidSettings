@@ -40,4 +40,5 @@ You can also search in all settings, using the specific field before the tree; t
 * Enable or disable triggers from context menu requires to close dialog for coherence reasons (see code for details).
 * When you select a Braille display that requires port selection, the port combobox is not shown immediately.
 
-[1]: http://addons.nvda-project.org/files/get.php?file=rs-dev
+
+[1]: https://raw.githubusercontent.com/ABuffEr/rapidSettings/master/packages/rapidSettings-2.0dev.nvda-addon
